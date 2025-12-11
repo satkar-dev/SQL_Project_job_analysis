@@ -18,7 +18,7 @@ GROUP BY
 
 SELECT 
     skills.skill_id,
-    skills AS skill_name,
+    skills.skills AS skill_name,
     skill_count
 FROM remote_job_skills
 INNER JOIN skills_dim AS skills ON skills.skill_id = remote_job_skills.skill_id
