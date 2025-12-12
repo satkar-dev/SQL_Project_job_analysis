@@ -62,7 +62,114 @@ Here's the breakdown of the top data analyst jobs in 2025:
 - **Diverse Employers:** Companies like SmartAssest, Meta, and AT&T are among those offering high salaries, showing a broad interest across different industries.
 - **Job Title Variety:** There's a high diversity in job titles, from Data Analyst to Director of Analytics, reflecting varied roles and specializations within data analytics.
 
-![Top Paying Roles]
+![Top Paying Role](assets\top_paying_roles.png)
+*Bar graph visualizing the salary for the top 10 salaries for data analysts; ChatGPT generated this graph from my SQL query results*
+
+### 2. Skills for Paying Jobs
+To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
+
+```sql
+WITH top_paying_jobs AS (
+SELECT 
+        job_id,
+        job_title,
+        salary_year_avg,
+        name AS company_name
+    FROM
+        job_postings_fact
+    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
+    WHERE
+        job_title_short = 'Data Analyst' AND
+        job_location = 'Anywhere' AND
+        salary_year_avg IS NOT NULL
+    ORDER BY
+        salary_year_avg DESC
+    LIMIT 10
+
+)
+
+SELECT 
+    top_paying_jobs.*,
+    skills
+FROM top_paying_jobs
+INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+ORDER BY
+    salary_year_avg DESC
+```
+- Top Skills Required for High-Paying Data Analyst Jobs in 2025:
+SQL is the most required skill, showing it remains the foundation for data extraction and database querying.
+- Python ranks second, confirming its importance in data analysis, automation, and scripting.
+- Tableau appears third, highlighting the strong demand for data visualization and dashboarding skills.
+- R and Excel are moderately required, supporting statistical analysis and spreadsheet-based workflows.
+- Pandas and Snowflake indicate growing demand for Python data manipulation and cloud data warehousing.
+- Go, Bitbucket, and Azure appear less often but show value in automation, version control, and cloud technologies.
+- Overall, the chart shows a blend of programming, visualization, cloud, and data management skills needed for top-paying data analyst jobs in 2025.
+
+![Skills Count](assets\Skill_count.png)
+
+### 3. In-Demand Skills for Data Analysts
+This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
+
+```sql
+SELECT 
+    skills,
+    COUNT(skills_job_dim.job_id) AS demand_count
+FROM job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_work_from_home = True
+GROUP BY
+    skills
+ORDER BY
+    demand_count DESC
+LIMIT 5
+```
+- SQL : Highest-demand skill, essential for querying and managing large datasets.
+- Excel : Still heavily required for quick analysis, reporting, and data cleaning.
+- Python : Key programming tool for automation, data manipulation, and analytics.
+- Tableau : Strong need for visual storytelling and interactive dashboards.
+- Power BI : Widely used in business environments for BI reporting and insights.
+
+| Skill   | Demand Count |
+|---------|--------------|
+| SQL     | 7,291        |
+| Excel   | 4,611        |
+| Python  | 4,330        |
+| Tableau | 3,745        |
+| Power BI| 2,609        |
+
+### 4. Skills Based on Salary
+Exploring the average salaries associated with different skills revealed which skills are the hightest paying.
+
+```sql
+SELECT 
+    skills,
+    ROUND(AVG(salary_year_avg), 0) AS avg_salary
+FROM job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    salary_year_avg IS NOT NULL AND
+    job_work_from_home = True
+GROUP BY
+    skills
+ORDER BY
+    avg_salary DESC
+LIMIT 25
+```
+Here's a breakdown of the results for top paying skills for Data Analysts:
+
+- Python: Highest-paying skill, strongly tied to automation, ML, and data engineering.
+- SQL: Core data skill trusted in high-paying enterprise roles.
+- Tableau: Visualization skill valued for converting insights into business decisions.
+- Power BI: Popular in enterprise environments for internal dashboards.
+- Excel: Still earns solid salaries due to its ubiquity in business analytics.
+
+
 # What I Learned
 
 # Conclusion
