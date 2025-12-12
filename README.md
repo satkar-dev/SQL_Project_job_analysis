@@ -62,7 +62,7 @@ Here's the breakdown of the top data analyst jobs in 2025:
 - **Diverse Employers:** Companies like SmartAssest, Meta, and AT&T are among those offering high salaries, showing a broad interest across different industries.
 - **Job Title Variety:** There's a high diversity in job titles, from Data Analyst to Director of Analytics, reflecting varied roles and specializations within data analytics.
 
-![Top Paying Role](assets\top_paying_roles.png)
+![Top Paying Role](assets/top_paying_roles.png)
 *Bar graph visualizing the salary for the top 10 salaries for data analysts; ChatGPT generated this graph from my SQL query results*
 
 ### 2. Skills for Paying Jobs
@@ -106,7 +106,7 @@ SQL is the most required skill, showing it remains the foundation for data extra
 - Go, Bitbucket, and Azure appear less often but show value in automation, version control, and cloud technologies.
 - Overall, the chart shows a blend of programming, visualization, cloud, and data management skills needed for top-paying data analyst jobs in 2025.
 
-![Skills Count](assets\Skill_count.png)
+![Skills Count](assets/Skill_count.png)
 
 ### 3. In-Demand Skills for Data Analysts
 This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
